@@ -1,12 +1,12 @@
-CFLAGS=-Wall -Wextra -Werror -std=c++98
+cflags=-Wall -Wextra -Werror -std=c++98
 
 all: megaphone
 
 megaphone: megaphone.o
-	c++ $(CFLAGS) $< -o $@
+	c++ $(cflags) $< -o $@
 
 megaphone.o: megaphone.cpp Makefile
-	c++ $(CFLAGS) -c $< -o $@
+	c++ $(cflags) -c $< -o $@
 
 re: fclean megaphone
 
