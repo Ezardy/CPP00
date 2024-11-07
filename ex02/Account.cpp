@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <ctime>
 
 #include "Account.hpp"
@@ -74,8 +75,7 @@ void	Account::_displayTimestamp(void) {
 	const time_t	timer = std::time(NULL);
 	const std::tm	*date = std::localtime(&timer);
 
-	std::cout << '[' << date->tm_year << date->tm_mon << date->tm_mday << '_'
-		<< date->tm_hour << date->tm_min << date->tm_sec;
+	std::cout << std::put_time(date, "[%Y%m%d_%H%M%S]");
 }
 
 void	Account::displayAccountsInfos(void) {
@@ -96,9 +96,10 @@ Account::~Account(void) {
 		<< ";closed" <<std::endl;
 }
 
-Account::Account( int initial_deposit )
+Account::Account(int initial_deposit)
 : _accountIndex(t::_nbAccounts++), _amount(initial_deposit),
 	_nbDeposits(0), _nbWithdrawals(0) {
+	_totalAmount += initial_deposit;
 	t::_displayTimestamp();
 	std::cout << " index:" << _accountIndex << ";amount:" << _amount
 		<< ";created" << std::endl;
