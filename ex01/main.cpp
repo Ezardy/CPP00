@@ -19,14 +19,18 @@ int	main() {
 	while (running) {
 		std::cout << "> ";
 		std::cin >> command;
-		if (command == "EXIT")
+		if (std::cin.eof()) {
 			running = false;
-		else if (command == "SEARCH") {
-			search_contact(book);
-		} else if (command == "ADD") {
-			add_contact(book);
-		} else
-			print_help();
+		} else {
+			if (command == "EXIT")
+				running = false;
+			else if (command == "SEARCH") {
+				search_contact(book);
+			} else if (command == "ADD") {
+				add_contact(book);
+			} else
+				print_help();
+		}
 	}
 	return 0;
 }
