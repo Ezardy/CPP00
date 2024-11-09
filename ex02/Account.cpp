@@ -75,7 +75,12 @@ void	Account::_displayTimestamp(void) {
 	const time_t	timer = std::time(NULL);
 	const std::tm	*date = std::localtime(&timer);
 
-	std::cout << std::put_time(date, "[%Y%m%d_%H%M%S]");
+	std::cout << '[' << 1900 + date->tm_year << std::setw(2)
+		<< std::setfill('0') << date->tm_mon + 1 << std::setw(2)
+		<< std::setfill('0') << date->tm_mday << '_'
+		<< std::setw(2) << std::setfill('0') << date->tm_hour
+		<< std::setw(2) << std::setfill('0') << date->tm_min
+		<< std::setw(2) << std::setfill('0') << date->tm_sec << ']';
 }
 
 void	Account::displayAccountsInfos(void) {
