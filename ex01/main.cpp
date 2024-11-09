@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip>
+#include <limits>
 
 #include "PhoneBook.hpp"
 
@@ -39,16 +40,21 @@ void	search_contact(const PhoneBook &book) {
 	int	i;
 
 	std::cout << "Contact's index (0-7): ";
-	std::cin >> i;
-	const Contact	&contact = book.GetContact(i);
-	if (contact.IsInvalid())
-		std::cerr << "Invalid contact's index" << std::endl;
-	else
-		std::cout << std::setw(10) << i
-			<< '|' << std::setw(10) << fitted_string(contact.FirstName())
-			<< '|' << std::setw(10) << fitted_string(contact.LastName())
-			<< '|' << std::setw(10) << fitted_string(contact.NickName())
-			<< std::endl;
+	if (std::cin >> i) {
+		const Contact	&contact = book.GetContact(i);
+		if (contact.IsInvalid())
+			std::cerr << "Invalid contact's index" << std::endl;
+		else
+			std::cout << std::setw(10) << i
+				<< '|' << std::setw(10) << fitted_string(contact.FirstName())
+				<< '|' << std::setw(10) << fitted_string(contact.LastName())
+				<< '|' << std::setw(10) << fitted_string(contact.NickName())
+				<< std::endl;
+	} else {
+		std::cout << "Can't read the index" << std::endl;
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	}
 }
 
 std::string	fitted_string(const std::string &str) {
